@@ -62,4 +62,55 @@ public:
     {
         return (START == NULL);
     }
+
+    bool search(int nim, Node **previos, Node **current)
+    {
+        *previos = START;
+        *current = START;
+
+        while ((*current != NULL) && (nim != (*current)->noMhs))
+        {
+            *previos = *current;
+            *current = (*current)->next;
+        }
+
+        return (*current != NULL);
+    }
+
+    bool delNode(int nim)
+    {
+        Node *current, *previos;
+        if (!search(nim, &previos, &current))
+        {
+            cout << "\nNoMhs tidak ditemukan\n";
+            return false;
+
+        if (current == START)
+            START = START->next;
+        else
+            previos->next = current->next;
+
+        delete current;
+        return true;
+        }
+    }
+
+    void travers()
+    {
+        if (listEmpaty())
+        {
+            cout << "\n list Kosong\n";
+        }
+        else
+        {
+            cout << "\nData di dalam list adalah:\n";
+            Node *currentNode = START;
+            while (currentNode != NULL)
+            {
+                cout << currentNode->noMhs << endl;
+                currentNode = currentNode->next;
+            }
+            cout << endl;
+        }
+    }
 };
